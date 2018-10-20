@@ -5,7 +5,7 @@ require_relative('models/ticket')
 
 Customer.delete_all
 Film.delete_all
-# Ticket.delete_all
+Ticket.delete_all
 
 customer_bob = Customer.new ({
   'name' => 'Bob Baker',
@@ -33,24 +33,30 @@ film_mean = Film.new ({
 film_shining.save
 film_mean.save
 
-# ticket_1 = Ticket.new ({
-#   'customer_id' => customer_bob.id,
-#   'film_id' => film_shining.id
-#   })
+ticket_1 = Ticket.new ({
+  'customer_id' => customer_bob.id,
+  'film_id' => film_shining.id
+  })
+
+ticket_2 = Ticket.new ({
+  'customer_id' => customer_jill.id,
+  'film_id' => film_mean.id
+  })
+
+ticket_1.save
+ticket_2.save
+
+# customer_bob.name = 'Bobby-Boy Billy-Bakes'
+# customer_bob.update
 #
-# ticket_1.save
-
-customer_bob.name = 'Bobby-Boy Billy-Bakes'
-customer_bob.update
-
-film_shining.title = 'The Shinning (Simpsons parody)'
-film_shining.update
+# film_shining.title = 'The Shinning (Simpsons parody)'
+# film_shining.update
 
 # ticket_1.customer_id = customer_jill.id
-# ticket1.update
-
-customer_bob.delete
-film_shining.delete
+# ticket_1.update
+#
+# # customer_bob.delete
+# # film_shining.delete
 # ticket_1.delete
 
 
