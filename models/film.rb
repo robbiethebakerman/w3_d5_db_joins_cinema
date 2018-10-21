@@ -8,7 +8,7 @@ class Film
   def initialize(options)
     @id = options['id'].to_i if options['id']
     @title = options['title']
-    @price = options['price']
+    @price = options['price'].to_i
   end
 
   def save()
@@ -68,6 +68,18 @@ class Film
     results = SqlRunner.run(sql, values)
     customers = results.map { |result| Customer.new(result) }
     return customers
+  end
+
+  def no_of_customers
+    sql = "SELECT COUNT (customers.id)
+      FROM customers
+      INNER JOIN tickets
+      ON customers.id = tickets.customer_id
+      WHERE film_id = $1;"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    count = results[0]['count'].to_i
+    return count
   end
 
 end
