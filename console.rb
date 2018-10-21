@@ -7,6 +7,7 @@ require_relative('models/screening')
 Customer.delete_all
 Film.delete_all
 Ticket.delete_all
+Screening.delete_all
 
 customer_bob = Customer.new ({
   'name' => 'Bob Baker',
@@ -55,40 +56,48 @@ screening_mean_1.save
 
 ticket_1 = Ticket.new ({
   'customer_id' => customer_bob.id,
-  'film_id' => film_shining.id
+  'film_id' => film_shining.id,
+  'screening_id' => screening_shining_1.id
   })
 
 ticket_2 = Ticket.new ({
   'customer_id' => customer_jill.id,
-  'film_id' => film_mean.id
+  'film_id' => film_mean.id,
+  'screening_id' => screening_mean_1.id
   })
 
 ticket_3 = Ticket.new ({
   'customer_id' => customer_jill.id,
-  'film_id' => film_shining.id
+  'film_id' => film_shining.id,
+  'screening_id' => screening_shining_1.id
   })
 
 ticket_4 = Ticket.new ({
-  'customer_id' => customer_bob.id,
-  'film_id' => film_mean.id
+  'customer_id' => customer_jill.id,
+  'film_id' => film_shining.id,
+  'screening_id' => screening_shining_2.id
   })
 
 ticket_1.save
 ticket_2.save
 ticket_3.save
-# ticket_4.save
+ticket_4.save
 
 # customer_bob.name = 'Bobby-Boy Billy-Bakes'
 # customer_bob.update
 #
 # film_shining.title = 'The Shinning (Simpsons parody)'
 # film_shining.update
-
+#
+# screening_shining_1.screening_time = '00:00'
+# screening_shining_1.update
+#
 # ticket_1.customer_id = customer_jill.id
 # ticket_1.update
-#
+
 # # customer_bob.delete
 # # film_shining.delete
+# screening_shining_1.delete
 # ticket_1.delete
 
 
