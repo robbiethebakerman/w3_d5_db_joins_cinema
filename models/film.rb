@@ -58,10 +58,12 @@ class Film
     SqlRunner.run(sql)
   end
 
-# REFACTOR (MOVE TO SCREENINGS to get customers for a particular screening
-# but then new function here to find customers for a film in general)
+# REFACTOR for screenings
+# Added "DISTINCT" command to sql to make sure each customer only returned once
+# (even if customer has book to see mupltiple screenings of the same film)
+
   def customers()
-    sql = "SELECT customers.*
+    sql = "SELECT DISTINCT customers.*
       FROM customers
       INNER JOIN tickets
       ON customers.id = tickets.customer_id
@@ -82,6 +84,18 @@ class Film
     results = SqlRunner.run(sql, values)
     count = results[0]['count'].to_i
     return count
+  end
+
+  def no_of_unique_customers
+    sql = "SELECT DISTINCT customers.*
+      FROM customers
+      INNER JOIN tickets
+      ON customers.id = tickets.customer_id
+      WHERE film_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    customers = results.map { |result| Customer.new(result) }
+    return customers.length
   end
 
 end

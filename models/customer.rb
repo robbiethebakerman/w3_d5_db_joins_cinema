@@ -58,9 +58,12 @@ class Customer
     SqlRunner.run(sql)
   end
 
-# REFACTOR (refer to screenings first, then films - two separate functions)
+# REFACTOR for screenings
+# Added "DISTINCT" command to sql to make sure each film only returned once
+# (even if customer has book to see mupltiple screenings)
+
   def films()
-    sql = "SELECT films.*
+    sql = "SELECT DISTINCT films.*
       FROM films
       INNER JOIN tickets
       ON films.id = tickets.film_id
