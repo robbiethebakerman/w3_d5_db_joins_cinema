@@ -2,6 +2,7 @@ require('pry-byebug')
 require_relative('models/customer')
 require_relative('models/film')
 require_relative('models/ticket')
+require_relative('models/screening')
 
 Customer.delete_all
 Film.delete_all
@@ -32,6 +33,25 @@ film_mean = Film.new ({
 
 film_shining.save
 film_mean.save
+
+screening_shining_1 = Screening.new({
+  'film_id' => film_shining.id,
+  'screening_time' => '12:00'
+  })
+
+screening_shining_2 = Screening.new({
+  'film_id' => film_shining.id,
+  'screening_time' => '15:00'
+  })
+
+screening_mean_1 = Screening.new({
+  'film_id' => film_mean.id,
+  'screening_time' => '18:00'
+  })
+
+screening_shining_1.save
+screening_shining_2.save
+screening_mean_1.save
 
 ticket_1 = Ticket.new ({
   'customer_id' => customer_bob.id,
