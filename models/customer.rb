@@ -58,6 +58,7 @@ class Customer
     SqlRunner.run(sql)
   end
 
+# REFACTOR (refer to screenings first, then films - two separate functions)
   def films()
     sql = "SELECT films.*
       FROM films
