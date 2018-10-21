@@ -86,6 +86,8 @@ class Film
     return count
   end
 
+# Added for refactor
+
   def no_of_unique_customers
     sql = "SELECT DISTINCT customers.*
       FROM customers
@@ -97,5 +99,26 @@ class Film
     customers = results.map { |result| Customer.new(result) }
     return customers.length
   end
+
+# Write a method that finds out what is the most popular time (most tickets sold) for a given film
+# tickets inner join screenings on tickets.screening_id = screenings.id where film id = @id
+
+  def screenings
+    sql = "SELECT screenings.*
+      FROM screenings
+      INNER JOIN tickets
+      ON screenings.id = tickets.screening_id
+      WHERE tickets.film_id = $1;"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    screenings = results.map { |result| Screening.new(result) }
+    return screenings
+  end
+
+  # SELECT tickets.*
+  #   FROM tickets
+  #   INNER JOIN screenings
+  #   ON screenings.id = tickets.screening_id
+  #   WHERE tickets.film_id = 51;
 
 end
