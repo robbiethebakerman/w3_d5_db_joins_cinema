@@ -121,4 +121,32 @@ class Film
   #   ON screenings.id = tickets.screening_id
   #   WHERE tickets.film_id = 51;
 
+  def most_popular_screening_time
+    sql = "SELECT screenings.*, COUNT (tickets.id) AS ticket_count
+      FROM screenings
+      INNER JOIN tickets
+      ON screenings.id = tickets.screening_id
+      WHERE tickets.film_id = $1
+      GROUP BY tickets.screening_id, screenings.id
+      ORDER BY ticket_count DESC;"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    most_popular_screening_time = results[0]['screening_time']
+    return most_popular_screening_time
+  end
+
+  # SELECT screenings.*, COUNT (tickets.id) AS ticket_count
+  # FROM screenings
+  # INNER JOIN tickets
+  # ON screenings.id = tickets.screening_id
+  # WHERE tickets.film_id = 51
+  # GROUP BY tickets.screening_id, screenings.id
+  # ORDER BY ticket_count DESC;
+  #
+  # SELECT bloggers.*, COUNT(post_id) AS post_count
+  #     FROM bloggers LEFT JOIN blogger_posts
+  #     ON bloggers.blogger_id = blogger_posts.blogger_id
+  #     GROUP BY bloggers.blogger_id
+  #     ORDER BY post_count
+
 end
